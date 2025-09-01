@@ -16,23 +16,50 @@
 # any binary operations can be built by using only NAND gates.
 # Following the lecture notes, we define the "NAND gate" as
 
+# 1 is True, 0 is False
+# AND returns 1 only if all inputs are 1
+# OR  returns 1 if any input is 1
+
 def NAND(a, b):
     return 1 - (a & b)  # NOT (a AND b)
+    # returns 0 only if all inputs are 1
+    # |a|b|(a&b)|1-(a&b)|
+    # |0|0|  0  |   1   |
+    # |0|1|  0  |   1   |
+    # |1|0|  0  |   1   |
+    # |1|1|  1  |   0   |
 
 # Following the notes again, we define also other basic operations:
 
 def NOT(a):
     return NAND(a, a)
+    # |a|1-(a&a)|
+    # |0|   1   |
+    # |1|   0   |
+
 
 def AND(a, b):
     return NOT(NAND(a, b))
 
 def OR(a, b):
     return NAND(NOT(a), NOT(b))
+    # |a|b|1-(-a&-b)|
+    # |0|0|    0    |
+    # |0|1|    1    |
+    # |1|0|    1    |
+    # |1|1|    1    |
 
 def XOR(a, b):
+    # EXCLUSIVE OR
+    # returns 1 only if exactly one of the inputs is 1
+    # returns 0 if both of the inputs are 1
     c = NAND(a, b)
     return NAND(NAND(a, c), NAND(b, c))
+    # |a|b|XOR|
+    # |0|0| 0 |
+    # |0|1| 1 |
+    # |1|0| 1 |
+    # |1|1| 0 |
 
 # We also implemented the half, full, and multi-bit adders:
 
@@ -88,6 +115,15 @@ def multibit_negative(A):
 
     """
     # TODO: implement the function here
+    opposite = []
+    n = len(A)
+    for i in range(n):
+        opposite.append(NOT(A[i]))
+    sum_one = [1] + ([0] * (n-1))
+    
+    return multibit_adder(opposite, sum_one)
+    
+        
 
 # We are now ready to implement subtraction using multibit_adder() and
 # multibit_negative().
@@ -110,3 +146,5 @@ def multibit_subtractor(A, B):
 
     """
     # TODO: implement the function here
+    assert(len(A) == len(B))
+    return multibit_adder(A, multibit_negative(B))
