@@ -38,11 +38,20 @@
 
 # TODO: Edit this sample idea.
 
-- topic: Numerical Linear Algebra
-  idea:  Develop a fast matrix multiplication algorithm to reduce
-         energy consumption during deep learning inference.
+- topic: Fourier Transform and Spectral Analysis
+  idea:  Detect exoplanet transits in light curves using FFT to 
+         identify periodic dimming, and test robustness against noise.
 
 # TODO: Add two more project ideas below, following the same format as
 # the example above.
+
+- topic: Interpolation and Extrapolation
+  idea:  Use interpolation methods to fill in gaps in noisy or irregularly
+         sampled light curves and compare accuracy across methods.
+
+- topic: Root Finding and Optimization Methods
+  idea:  Develop an exposure time calculator for CMOS detectors 
+         by optimizing an SNR model with root-finding methods.
+
 # Remember to ensure that each idea is distinct and concise, and each
 # "topic" must be one of the listed course topics.
