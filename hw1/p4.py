@@ -47,7 +47,20 @@ class CoupledOscillators:
         """
         # TODO: Construct the stiffness matrix K
 
+        # Initially implemented hard-coded 3 coupled oscillator stiffness matrix since N = 3 in __init__
+        # but realized that pytest was testing different N
+        # 
+        # K = np.array([
+        #     [ 2, -1,  0],
+        #     [-1,  2, -1],
+        #     [ 0, -1,  2],
+        # ]) * k/m
+
+        # Create matrix of shape [N, N]
+
         K = np.zeros(shape= [len(X0), len(X0)], dtype = int)
+
+        # Set up stiffness matrix so that every mass x_i has coefficent 2k/m at [i], -k/m at [i+/-1], and 0 otherwise
 
         for i in range(K.shape[0]):
             for j in range(K.shape[1]):
@@ -55,12 +68,7 @@ class CoupledOscillators:
                     K[i][j] = 2
                 elif abs(i - abs(j)) == 1:
                     K[i][j] = -1
-
-        # K = np.array([
-        #     [ 2, -1,  0],
-        #     [-1,  2, -1],
-        #     [ 0, -1,  2],
-        # ]) * k/m
+        K = K*k/m
 
         # TODO: Solve the eigenvalue problem for K to find normal modes
         
